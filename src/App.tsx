@@ -1,12 +1,20 @@
-import { useRef } from "react";
+import { useRef } from "react"
 import "./App.css"
+import axios from "axios"
+
+const apiKey = "e276bb6539f39bfb249971234d3729dd"
 
 function App() {
-	const inputRef = useRef<HTMLInputElement>(null);
+	const inputRef = useRef<HTMLInputElement>(null)
 
-	const handleClick = () => {
+	const handleClick = async () => {
 		if (inputRef.current) {
-			console.log(inputRef.current.value);
+			const city = inputRef.current?.value
+			console.log(inputRef.current.value)
+			const apiCall = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&lang=pt_br&units=metric`
+
+			const response = await axios.get(apiCall)
+			console.log(response.data)
 		}
 	}
 
@@ -16,7 +24,11 @@ function App() {
 			<input
 				type="text"
 				ref={inputRef}
-				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+				className="
+				bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+				focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-700 
+				dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+				dark:focus:ring-blue-500 dark:focus:border-blue-500"
 			/>
 			<button onClick={handleClick}>Buscar</button>
 		</>
