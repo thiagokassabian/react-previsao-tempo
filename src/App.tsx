@@ -2,16 +2,17 @@ import { useRef } from "react"
 import "./App.css"
 import axios from "axios"
 
-const apiKey = "e276bb6539f39bfb249971234d3729dd"
+// const apiKey = "e276bb6539f39bfb249971234d3729dd"
 
 function App() {
 	const inputRef = useRef<HTMLInputElement>(null)
 
 	const handleClick = async () => {
+		const key = import.meta.env.VITE_APIKEY
+
 		if (inputRef.current) {
-			const city = inputRef.current?.value
-			console.log(inputRef.current.value)
-			const apiCall = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&lang=pt_br&units=metric`
+			const city = inputRef.current.value
+			const apiCall = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}&lang=pt_br&units=metric`
 
 			const response = await axios.get(apiCall)
 			console.log(response.data)
